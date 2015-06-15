@@ -1,0 +1,7 @@
+#include "chip.h"
+
+void Board_Init(void);
+void PWM_setup_pin(void);
+void InitGPIO(void);
+void InitDAC(void);
+void InitADC(void);

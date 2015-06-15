@@ -1,0 +1,35 @@
+09:04:44 **** Build of configuration Debug for project STKfw ****
+make -r all 
+Building file: ../example/src/BoardInit.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Progetti\DemoKit\stk_board\lpc_chip_15xx\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -specs=redlib.specs -MMD -MP -MF"example/src/BoardInit.d" -MT"example/src/BoardInit.o" -MT"example/src/BoardInit.d" -o "example/src/BoardInit.o" "../example/src/BoardInit.c"
+In file included from ../example/src/BoardInit.c:20:0:
+../example/src/board.h:48:13: warning: 'sequence0Complete' defined but not used [-Wunused-variable]
+ static bool sequence0Complete;
+             ^
+Finished building: ../example/src/BoardInit.c
+ 
+Building file: ../example/src/STKfw.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Progetti\DemoKit\stk_board\lpc_chip_15xx\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -specs=redlib.specs -MMD -MP -MF"example/src/STKfw.d" -MT"example/src/STKfw.o" -MT"example/src/STKfw.d" -o "example/src/STKfw.o" "../example/src/STKfw.c"
+Finished building: ../example/src/STKfw.c
+ 
+Building file: ../example/src/sysinit.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Progetti\DemoKit\stk_board\lpc_chip_15xx\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -specs=redlib.specs -MMD -MP -MF"example/src/sysinit.d" -MT"example/src/sysinit.o" -MT"example/src/sysinit.d" -o "example/src/sysinit.o" "../example/src/sysinit.c"
+Finished building: ../example/src/sysinit.c
+ 
+Building target: STKfw.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Progetti\DemoKit\stk_board\lpc_chip_15xx\Debug" -Xlinker -Map="STKfw.map" -Xlinker --gc-sections -mcpu=cortex-m3 -mthumb -T "STKfw_Debug.ld" -o "STKfw.axf"  ./example/src/BoardInit.o ./example/src/STKfw.o ./example/src/cr_startup_lpc15xx.o ./example/src/sysinit.o   -llpc_chip_15xx
+Finished building target: STKfw.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "STKfw.axf"; # arm-none-eabi-objcopy -v -O binary "STKfw.axf" "STKfw.bin" ; # checksum -p LPC1549 -d "STKfw.bin";
+   text	   data	    bss	    dec	    hex	filename
+   9688	    448	    364	  10500	   2904	STKfw.axf
+ 
+
+09:04:47 Build Finished (took 3s.34ms)
+

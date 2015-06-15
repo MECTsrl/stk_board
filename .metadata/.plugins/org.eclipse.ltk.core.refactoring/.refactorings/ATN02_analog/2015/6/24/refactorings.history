@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;ATN02_analog/src/include/board.h&apos; to &apos;Analogboard.h&apos;" description="Rename resource &apos;board.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/include/board.h" name="Analogboard.h" stamp="1433926297506" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;ATN02_analog/src/include/board_api.h&apos; to &apos;board_api.j&apos;" description="Rename resource &apos;board_api.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/include/board_api.h" name="board_api.j" stamp="1433926643517" updateReferences="true"/>
+</session>

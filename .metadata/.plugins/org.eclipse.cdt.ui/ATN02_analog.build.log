@@ -1,0 +1,12 @@
+11:45:58 **** Incremental Build of configuration Debug for project ATN02_analog ****
+make -r all 
+Building target: ATN02_analog.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Progetti\DemoKit\FIRMAWARE\lpc_chip_15xx\Debug" -L"C:\Progetti\DemoKit\FIRMAWARE\lpc_board_nxp_lpcxpresso_1549\Debug" -Xlinker -Map="ATN02_analog.map" -Xlinker --gc-sections -mcpu=cortex-m3 -mthumb -T "ATN02_analog_Debug.ld" -o "ATN02_analog.axf"  ./src/uart/uart_rom_int.o  ./src/modbus/rtu/mbcrc.o ./src/modbus/rtu/mbrtu.o  ./src/modbus/port/port.o ./src/modbus/port/portevent.o ./src/modbus/port/portserial.o ./src/modbus/port/porttimer.o  ./src/modbus/functions/mbfunccoils.o ./src/modbus/functions/mbfuncdiag.o ./src/modbus/functions/mbfuncdisc.o ./src/modbus/functions/mbfuncholding.o ./src/modbus/functions/mbfuncinput.o ./src/modbus/functions/mbfuncother.o ./src/modbus/functions/mbutils.o  ./src/modbus/mb.o  ./src/analog/adc.o ./src/analog/dac.o ./src/analog/spi_rom.o  ./src/const.o ./src/cr_startup_lpc15xx.o ./src/main.o ./src/sysinit.o   -llpc_chip_15xx -llpc_board_nxp_lpcxpresso_1549
+C:\Progetti\DemoKit\FIRMAWARE\lpc_board_nxp_lpcxpresso_1549\Debug\liblpc_board_nxp_lpcxpresso_1549.a(board_sysinit.o): In function `Board_SetupClocking':
+C:\Progetti\DemoKit\FIRMAWARE\lpc_board_nxp_lpcxpresso_1549\Debug/../src/board_sysinit.c:154: undefined reference to `Chip_SetupXtalClocking'
+collect2.exe: error: ld returned 1 exit status
+make: *** [ATN02_analog.axf] Error 1
+
+11:45:59 Build Finished (took 485ms)
+

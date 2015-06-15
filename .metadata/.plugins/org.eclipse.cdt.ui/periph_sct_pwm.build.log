@@ -1,0 +1,58 @@
+15:37:42 **** Build of configuration Debug for project periph_sct_pwm ****
+make -r all 
+Building file: ../example/src/cr_startup_lpc15xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Progetti\DemoKit\FIRMAWARE\lpc_chip_15xx\inc" -I"C:\Progetti\DemoKit\FIRMAWARE\lpc_board_nxp_lpcxpresso_1549\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -specs=redlib.specs -MMD -MP -MF"example/src/cr_startup_lpc15xx.d" -MT"example/src/cr_startup_lpc15xx.o" -MT"example/src/cr_startup_lpc15xx.d" -o "example/src/cr_startup_lpc15xx.o" "../example/src/cr_startup_lpc15xx.c"
+Finished building: ../example/src/cr_startup_lpc15xx.c
+ 
+Building file: ../example/src/sct_pwm.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Progetti\DemoKit\FIRMAWARE\lpc_chip_15xx\inc" -I"C:\Progetti\DemoKit\FIRMAWARE\lpc_board_nxp_lpcxpresso_1549\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -specs=redlib.specs -MMD -MP -MF"example/src/sct_pwm.d" -MT"example/src/sct_pwm.o" -MT"example/src/sct_pwm.d" -o "example/src/sct_pwm.o" "../example/src/sct_pwm.c"
+../example/src/sct_pwm.c: In function 'main':
+../example/src/sct_pwm.c:114:2: warning: implicit declaration of function 'InitDAC' [-Wimplicit-function-declaration]
+  InitDAC();
+  ^
+../example/src/sct_pwm.c:115:2: warning: implicit declaration of function 'InitADC' [-Wimplicit-function-declaration]
+  InitADC();
+  ^
+../example/src/sct_pwm.c:116:2: warning: implicit declaration of function 'InitGPIO' [-Wimplicit-function-declaration]
+  InitGPIO();
+  ^
+../example/src/sct_pwm.c:109:18: warning: unused variable 'led_step' [-Wunused-variable]
+  int led_dp = 0, led_step = 1, out_dp = 0;
+                  ^
+../example/src/sct_pwm.c:109:6: warning: unused variable 'led_dp' [-Wunused-variable]
+  int led_dp = 0, led_step = 1, out_dp = 0;
+      ^
+../example/src/sct_pwm.c: At top level:
+../example/src/sct_pwm.c:40:32: warning: 'sequence1Complete' defined but not used [-Wunused-variable]
+ static bool sequence0Complete, sequence1Complete, threshold1Crossed;
+                                ^
+../example/src/sct_pwm.c:40:51: warning: 'threshold1Crossed' defined but not used [-Wunused-variable]
+ static bool sequence0Complete, sequence1Complete, threshold1Crossed;
+                                                   ^
+../example/src/sct_pwm.c: In function 'InitGPIO':
+../example/src/sct_pwm.c:252:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../example/src/sct_pwm.c
+ 
+Building file: ../example/src/sysinit.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Progetti\DemoKit\FIRMAWARE\lpc_chip_15xx\inc" -I"C:\Progetti\DemoKit\FIRMAWARE\lpc_board_nxp_lpcxpresso_1549\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -specs=redlib.specs -MMD -MP -MF"example/src/sysinit.d" -MT"example/src/sysinit.o" -MT"example/src/sysinit.d" -o "example/src/sysinit.o" "../example/src/sysinit.c"
+Finished building: ../example/src/sysinit.c
+ 
+Building target: periph_sct_pwm.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Progetti\DemoKit\FIRMAWARE\lpc_chip_15xx\Debug" -L"C:\Progetti\DemoKit\FIRMAWARE\lpc_board_nxp_lpcxpresso_1549\Debug" -Xlinker -Map="periph_sct_pwm.map" -Xlinker --gc-sections -mcpu=cortex-m3 -mthumb -T "periph_sct_pwm_Debug.ld" -o "periph_sct_pwm.axf"  ./example/src/cr_startup_lpc15xx.o ./example/src/sct_pwm.o ./example/src/sysinit.o   -llpc_board_nxp_lpcxpresso_1549 -llpc_chip_15xx
+Finished building target: periph_sct_pwm.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "periph_sct_pwm.axf"; # arm-none-eabi-objcopy -v -O binary "periph_sct_pwm.axf" "periph_sct_pwm.bin" ; # checksum -p LPC1549 -d "periph_sct_pwm.bin";
+   text	   data	    bss	    dec	    hex	filename
+  10124	    448	    352	  10924	   2aac	periph_sct_pwm.axf
+ 
+
+15:37:44 Build Finished (took 1s.678ms)
+

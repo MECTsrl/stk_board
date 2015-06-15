@@ -1,0 +1,23 @@
+16:01:47 **** Incremental Build of configuration Debug for project STKboard ****
+make -r all 
+Building file: ../src/board.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Progetti\DemoKit\FIRMAWARE\lpc_chip_15xx\inc" -I"C:\Progetti\DemoKit\FIRMAWARE\STKboard\inc" -Og -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -specs=redlib.specs -MMD -MP -MF"src/board.d" -MT"src/board.o" -MT"src/board.d" -o "src/board.o" "../src/board.c"
+Finished building: ../src/board.c
+ 
+Building target: libSTKboard.a
+Invoking: MCU Archiver
+arm-none-eabi-ar -r  "libSTKboard.a"  ./src/board.o ./src/board_sysinit.o   
+c:\nxp\LPCXpresso_7.4.0_229\lpcxpresso\tools\bin\arm-none-eabi-ar.exe: creating libSTKboard.a
+Finished building target: libSTKboard.a
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "libSTKboard.a" ; # arm-none-eabi-objdump -h -S "libSTKboard.a" >"libSTKboard.lss"
+   text	   data	    bss	    dec	    hex	filename
+     56	      0	      0	     56	     38	board.o (ex libSTKboard.a)
+    108	      0	      0	    108	     6c	board_sysinit.o (ex libSTKboard.a)
+ 
+
+16:01:48 Build Finished (took 1s.146ms)
+

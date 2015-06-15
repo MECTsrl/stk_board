@@ -1,0 +1,102 @@
+#include "board.h"
+
+void Board_Init(void)
+{
+
+	/* Initialize GPIO */
+	Chip_GPIO_Init(LPC_GPIO);
+
+
+}
+
+void PWM_setup_pin(void)
+{
+	/* Enable SWM clock before altering SWM */
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
+
+	/* Connect SCT output 1 to PIO0_9 */
+	Chip_SWM_MovablePinAssign(SWM_SCT0_OUT1_O, 8);
+	Chip_SWM_MovablePinAssign(SWM_SCT0_OUT0_O, 9);
+
+	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
+}
+void  InitGPIO(){
+	/* Set port 1 pins to the output direction */
+	Chip_GPIO_SetPortDIROutput(LPC_GPIO, 1, PORT_MASK);
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_IOCON);
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 14, IOCON_MODE_PULLDOWN,IOCON_FUNC0);
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 15, IOCON_MODE_PULLDOWN,IOCON_FUNC0);
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 16, IOCON_MODE_PULLDOWN,IOCON_FUNC0);
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 24, IOCON_MODE_PULLDOWN,IOCON_FUNC0);
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 25, IOCON_MODE_PULLDOWN,IOCON_FUNC0);
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 26, IOCON_MODE_PULLDOWN,IOCON_FUNC0);
+	/* Set GPIO port mask value to make sure only port 1
+	    selected pins are activated during writes */
+//	Chip_GPIO_SetPortMask(LPC_GPIO, 1, ~PORT_MASK);
+
+}
+void  InitDAC(void)
+{
+	/* Initialize the SCT as PWM and set frequency */
+	Chip_SCTPWM_Init(SCT_PWM);
+	Chip_SCTPWM_SetRate(SCT_PWM, SCT_PWM_RATE);
+
+	/* Setup Board output pin */
+	PWM_setup_pin();
+
+	/* Use SCT0_OUT1 pin */
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_OUT1, SCT_PWM_PIN_OUT1);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_OUT2, SCT_PWM_PIN_OUT2);
+
+	/* Start with 0% duty cycle */
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_OUT1, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/2);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_OUT2, 0);
+	Chip_SCTPWM_Start(SCT_PWM);
+
+	;
+}
+
+/**
+ * @brief	init ADC section routine
+ * @return	0
+ */
+void  InitADC(void)
+{
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
+	SystemCoreClockUpdate();
+	/* Setup ADC for 12-bit mode and normal power */
+	Chip_ADC_Init(LPC_ADC0, 0);
+
+	/* Setup for maximum ADC clock rate */
+	Chip_ADC_SetClockRate(LPC_ADC0, ADC_MAX_SAMPLE_RATE);
+	Chip_ADC_SetupSequencer(LPC_ADC0, ADC_SEQA_IDX, (	ADC_SEQ_CTRL_CHANSEL(1) | 	/* freq1    */
+														ADC_SEQ_CTRL_CHANSEL(2) |	/* freq2    */
+														ADC_SEQ_CTRL_CHANSEL(3) |	/* Vout    */
+														ADC_SEQ_CTRL_MODE_EOS));
+
+	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 7, (IOCON_MODE_INACT | IOCON_DIGMODE_EN));
+	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 6, (IOCON_MODE_INACT | IOCON_DIGMODE_EN));
+	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 5, (IOCON_MODE_INACT | IOCON_DIGMODE_EN));
+
+	Chip_SWM_EnableFixedPin(SWM_FIXED_ADC0_1); 	/* Assign ADC0_7 to PIO0_1 via SWM (fixed pin) */
+	Chip_SWM_EnableFixedPin(SWM_FIXED_ADC0_2);	/* Assign ADC0_6 to PIO0_2 via SWM (fixed pin) */
+	Chip_SWM_EnableFixedPin(SWM_FIXED_ADC0_3);	/* Assign ADC0_5 to PIO0_3 via SWM (fixed pin) */
+
+	Chip_ADC_SetTrim(LPC_ADC0, ADC_TRIM_VRANGE_HIGHV);
+	Chip_ADC_StartCalibration(LPC_ADC0);
+	while (!(Chip_ADC_IsCalibrationDone(LPC_ADC0))) {}
+
+	/* Clear all pending interrupts */
+	Chip_ADC_ClearFlags(LPC_ADC0, Chip_ADC_GetFlags(LPC_ADC0));
+	/* Enable sequence A completion interrupts for ADC0 */
+	Chip_ADC_EnableInt(LPC_ADC0, ADC_INTEN_SEQA_ENABLE);
+	/* Enable related ADC NVIC interrupts */
+	NVIC_EnableIRQ(ADC0_SEQA_IRQn);
+	/* Enable sequencers */
+	Chip_ADC_EnableSequencer(LPC_ADC0, ADC_SEQA_IDX);
+
+	Chip_ADC_SetClockRate(LPC_ADC0, ADC_MAX_SAMPLE_RATE);
+	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
+
+
+}
